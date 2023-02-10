@@ -14,16 +14,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   public async validate(payload: any) {
-    return {
-      id: payload.sub,
-      login: payload['cognito:username'],
-      name: payload.name,
-      email: payload.email,
-      emailVerificado: payload.email_verified,
-      celular: payload.phone_number,
-      celularVerificado: payload.phone_number_verified,
-      tokenCriadoEm: new Date(payload.iat * 1000),
-      tokenExpiraEm: new Date(payload.exp * 1000),
-    }
+    return payload
   }
 }
