@@ -1,6 +1,7 @@
 import { Controller, Get } from "@nestjs/common";
-import { Body, Post } from "@nestjs/common/decorators";
+import { Body, Post, UseGuards } from "@nestjs/common/decorators";
 import { HttpResponse } from "src/infra/http/http.response";
+import { JwtAuthGuard } from "../auth/jwt/jwt-auth.guard";
 import { UserDto } from "./dto/user.dto";
 import { UserService } from "./user.service";
 
@@ -18,6 +19,7 @@ export class UserController {
     constructor(private userService: UserService) { }
 
     @Get('/')
+    @UseGuards(JwtAuthGuard)
     async getUser() {
         const retorno = await this.userService.listUsers();
         return HttpResponse.sucesso('Operacao realizada com sucesso', retorno);
